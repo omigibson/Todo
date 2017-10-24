@@ -4,4 +4,8 @@ $pdo = new PDO (
     "root",
     "root"
 );
+
+$statement = $pdo->prepare("SELECT * FROM TODO ORDER BY id DESC");
+$statement->execute();
+$TODO = $statement ->fetchALL(PDO::FETCH_ASSOC);
 ?>

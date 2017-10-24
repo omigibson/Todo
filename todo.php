@@ -11,17 +11,14 @@
 <h1>Att göra</h1>
 
 <?php
-$pdo = new PDO (
-    "mysql:host=localhost;dbname=TODO;charset=utf8",
-    "root",
-    "root"
-);
 
-$statement = $pdo->prepare("SELECT * FROM TODO");
-$statement->execute();
-$TODO = $statement ->fetchALL(PDO::FETCH_ASSOC);
+if(isset($_GET['message'])){
+    echo "<p>" . $_GET['message'] . "</p>";
+    }
 
-for ($i = count($TODO) - 1; $i > -1; $i--) {
+require("pdo.php");
+
+for ($i = 0; $i < count($TODO); $i++) {
     echo 
     "<div><p>" . $TODO[$i]['id'] . "<br/>
     Uppgift: " . $TODO[$i]['title'] . "<br/>
@@ -34,15 +31,20 @@ for ($i = count($TODO) - 1; $i > -1; $i--) {
     } 
     "<br/>"; 
     echo "Tillagt av: " . $TODO[$i]['createdBy'] . "<br/>
-   </p></div>";
+   </p></div>";?>
+   <form action="delete.php" method="POST">
+   <input type="submit" name="delete_$i" value="Ta bort"/>
+   </form>
+<?php 
 }
+
 
 var_dump($TODO);
 ?>
 
 <h2>Lägg till på listan</h2>
 
-<form action="todo.php" method="POST">
+<form action="add.php" method="POST">
 <label>Uppgift</label><br/>
 <input type="text" name="task" placeholder="Skriv här" /><br/>
 <label>Tillagt av</label><br/>
@@ -55,16 +57,8 @@ var_dump($TODO);
 //$newtask = $_POST["task"];
 //$newname = $_POST["name"];
 
-$add = $pdo->prepare(
-    "INSERT INTO TODO (title, completed, createdBy)
-    VALUES (:task, :completed, :name)"
-);
 
-$add->execute(array(
-    ":task" => $_POST["task"],
-    ":completed" => 0,
-    ":name" => $_POST["name"]
-));
+
 ?>
     
 </body>
