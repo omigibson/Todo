@@ -21,7 +21,7 @@ $statement = $pdo->prepare("SELECT * FROM TODO");
 $statement->execute();
 $TODO = $statement ->fetchALL(PDO::FETCH_ASSOC);
 
-for ($i = 0; $i < count($TODO); $i++) {
+for ($i = count($TODO) - 1; $i > -1; $i--) {
     echo 
     "<div><p>" . $TODO[$i]['id'] . "<br/>
     Uppgift: " . $TODO[$i]['title'] . "<br/>
@@ -51,9 +51,13 @@ var_dump($TODO);
 </form>
 
 <?php
+
+//$newtask = $_POST["task"];
+//$newname = $_POST["name"];
+
 $add = $pdo->prepare(
-    "Insert INTO TODO (title, completed, createdBy)
-    VALUES (:task, :completed :name)"
+    "INSERT INTO TODO (title, completed, createdBy)
+    VALUES (:task, :completed, :name)"
 );
 
 $add->execute(array(
