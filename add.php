@@ -2,9 +2,7 @@
 
 $message = urlencode("En ny uppgift har lagts till");
 
-
-if(!empty($_POST["task"] && $_POST["name"])){
-    
+if(!empty($_POST["task"] && $_POST["name"])){    
     header("Location: http://localhost:8888/todo.php/?message=".$message);
 }
 
