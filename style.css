@@ -1,0 +1,67 @@
+html {
+    background-image: url(images/pink.jpeg);
+    background-size: cover;
+}
+
+h1, h2 {
+    text-align:center;
+    font-family: 'Lora', serif;
+    color: #f2f20d;
+}
+
+h1 {
+    font-size: 3em;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+.all_tasks {
+    width: 460px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items:center;
+    justify-content: space-between;
+    margin: 0px auto;
+}
+
+.task {
+    width: 200px;
+    background-color: rgba(255,255,255,0.3);
+    text-align: center;
+    padding-bottom: 16px;
+    border: 3px dotted #00e6ac;
+    border-radius: 20px;
+    margin: 10px;
+}
+
+.completed_tasks {
+    width: 460px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items:center;
+    justify-content: space-between;
+    margin: 0px auto;
+}
+
+input {
+    font-family: 'Lora', serif;
+}
+
+p {
+    font-family: 'Gloria Hallelujah', cursive;
+}
+
+.add_task {
+    text-align: center;
+}
+
+label {
+    font-family:'Lora', serif;
+}
+footer {
+    width: 460px;
+    margin: 30px auto;
+    border-top: 3px dotted #00e6ac;
+}

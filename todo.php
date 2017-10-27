@@ -5,35 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>To do</title>
-
-    <style>
-    html {
-        background-image: url(images/pink.jpeg);
-        background-size: cover;
-    }
-
-    h1, h2 {
-        text-align:center;
-    }
-
-    main {
-        display: flex;
-        flex-direction: column;
-        align-items:center;
-    }
-
-    div {
-        width: 200px;
-        text-align: center;
-        border: 1px dashed white;
-    }
-    </style>
+    <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Lora:400,700,700i" rel="stylesheet"> 
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 
+
 <main>
 
-<h1>Att göra</h1>
+<h1>Att göra-lista</h1>
+
+<div class="all_tasks">
 
 <?php
 
@@ -44,8 +26,42 @@ if(isset($_GET['message'])){
 require("pdo.php");
 
 for ($i = 0; $i < count($TODO); $i++) {
+    if ($TODO[$i]['completed'] == 0) {
     echo 
-    "<div><p>" . $TODO[$i]['id'] . "<br/>
+    "<div class='task'><p>
+    Uppgift: " . $TODO[$i]['title'] . "<br/>
+    Klar: "; 
+    if ($TODO[$i]['completed'] == 0) {
+        echo "Nej <br/>";
+    }
+    else {
+        echo "Ja <br/>";
+    } 
+    "<br/>"; 
+    echo "Tillagt av: " . $TODO[$i]['createdBy'] . "<br/>
+   </p>";
+   echo "<form action='delete.php' method='POST'>
+   <input type='hidden' name='id' value='" . $TODO[$i]['id'] . "' />
+   <input type='submit' name='delete' value='Ta bort'/>
+   </form>
+   <form action='complete.php' method='POST'>
+   <input type='hidden' name='id' value='" . $TODO[$i]['id'] . "' />
+   <input type='submit' name='complete' value='Klarmarkera'/>
+   </form></div><br/>";
+}
+}
+
+?>
+</div>
+
+<h2>Avklarade uppgifter</h2>
+<div class="completed_tasks">
+<?php
+
+
+for ($i = 0; $i < count($TODO); $i++) {
+    if ($TODO[$i]['completed'] == 1) {
+        echo "<div class='task'><p>
     Uppgift: " . $TODO[$i]['title'] . "<br/>
     Klar: "; 
     if ($TODO[$i]['completed'] == 0) {
@@ -62,32 +78,13 @@ for ($i = 0; $i < count($TODO); $i++) {
    <input type='submit' name='delete' value='Ta bort'/>
    </form></div><br/>";
 }
+}
 
-/*foreach($TODO as $task){
-    echo 
-    "<div><p>" . $task['id'] . "<br/>
-    Uppgift: " . $task['title'] . "<br/>
-    Klar: "; 
-    if ($task['completed'] == 0) {
-        echo "Nej <br/>";
-    }
-    else {
-        echo "Ja <br/>";
-    } 
-    "<br/>"; 
-    echo "Tillagt av: " . $task['createdBy'] . "<br/>
-   </p></div>";?>
-   <form action="delete.php" method="POST">
-   <input type="submit" name="$task['id']" value="Ta bort"/>
-   </form>
-   <?php
-}*/
-
-
-//var_dump($TODO);
 ?>
+</div>
 
-<h2>Lägg till på listan</h2>
+<div class="add_task">
+<h2>Lägg till på att göra-listan</h2>
 
 <div>
 <form action="add.php" method="POST">
@@ -99,14 +96,12 @@ for ($i = 0; $i < count($TODO); $i++) {
 </form>
 </div>
 
-<?php
+</div>
 
-//$newtask = $_POST["task"];
-//$newname = $_POST["name"];
-
-
-
-?>
 </main>  
+<footer>
+    <p>Följ mig på Github: <a href="https://github.com/omigibson">@omigibson</a>. Där kan du bland annat lära dig mer 
+    om <a href="https://github.com/omigibson/Todo">hur jag byggde denna applikation</a>.</p>
+</footer>
 </body>
 </html>
