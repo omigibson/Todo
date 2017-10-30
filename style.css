@@ -51,6 +51,7 @@ input {
 
 p {
     font-family: 'Gloria Hallelujah', cursive;
+    text-align: center;
 }
 
 .add_task {
